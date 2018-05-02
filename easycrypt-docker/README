@@ -1,0 +1,20 @@
+This tar package contains:
+
+   * .dockerignore -- empty but crucial file for docker
+   * Dockerfile    -- to build a self-contained image of OCaml with OPAM and EasyCrypt preinstalled
+   * README        -- this file
+   * run.sh        -- shell script to launch Docker container
+   * shared/       -- empty directory for your work; this will appear as /home/opam/shared in the running Docker container
+
+Build the Docker image by running:
+  $ cd [path/to/unpacked/]cs512-easycrypt-docker
+  $ docker build -t "cs512/easycrypt:latest" .
+This will take a while. It's imperative that you navigate to this directory first before attempt a build to prevent sending unnecessary files to the Docker build daemon.
+
+To launch the Docker container and open up a shell for it, use the provided shell scrypt:
+   $ ./run.sh
+You can also pass commands to the shell script which will in turn pass them to the Docker container:
+   $ ./run.sh echo hi
+   hi
+Alternatively, you can issue the following command (adding, removing flags to your heart's content):
+  $ docker run -it -e TERM --name "easycrypt-box" -v "$PWD/shared":/home/opam/shared --rm cs512/easycrypt

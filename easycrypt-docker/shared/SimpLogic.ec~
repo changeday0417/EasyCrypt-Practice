@@ -1,0 +1,25 @@
+(* SimpLogic.ec *)
+prover ["!"].  (* no SMT solvers *)
+lemma lemma_2 PQ (P : bool, Q : bool) :
+    (P => Q) => ((! Q )=> (! P)).
+    proof.
+      P : bool.
+    Q : bool.
+    
+qed.  
+>  
+lemma not_ex_not_imp_fa (P : 'a -> bool) :
+    ! (exists (x : 'a), ! P x) => forall (x : 'a), P x.
+    proof.
+    move => not_ex_x_not_P_x x.
+    case (P x) => [// | not_P_x].
+      have // : exists x, ! P x by exists x.
+  qed.
+
+lemma fa_iff_not_ex_not (P : 'a -> bool) :
+    (forall (x : 'a), P x) <=> ! exists (x : 'a), ! P x.
+    proof.
+      split; [apply fa_imp_not_ex_not | apply not_ex_not_imp_fa].
+  qed.
+
+ 
